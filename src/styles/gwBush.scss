@@ -1,0 +1,16 @@
+.gwbush {
+    height: 10%;
+    width: 10%;
+    background-color:black;
+    position: absolute;
+    background: url("/images/gwbush.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    &:focus {
+        outline:none;
+    }
+    &--contact {
+        border: 3px solid rgb(255, 0, 0);
+    }
+}

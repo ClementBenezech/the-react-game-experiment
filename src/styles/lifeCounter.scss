@@ -1,0 +1,16 @@
+.life-counter {
+    width: min-content;
+    display:flex;
+    flex-direction:row;
+    font-size: 5vh;
+    align-items:center;
+    border: 0.5vh solid black;
+    padding: 1vh;
+    &__value {
+        color: green;
+    }
+    &__icon {
+        color:red;
+        margin-right: 3vw;
+    }
+}

@@ -1,0 +1,11 @@
+.fancy-square {
+    height: 10vh;
+    width: 10vh;
+    background-color:black;
+    position: absolute;
+    background: url("/images/borat.png");
+    background-size:contain;
+    &:focus {
+        outline:none;
+    }
+}
