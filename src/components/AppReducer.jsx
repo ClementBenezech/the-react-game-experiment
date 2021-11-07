@@ -1,5 +1,5 @@
 const initialState = {
-    boratPosition: {'x':'10', 'y':'10'},
+    boratPosition: {'x':'50', 'y':'90'},
     GWBushPosition: {'x':'50', 'y':'50'},
     lifeCount: 10
 }

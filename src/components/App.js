@@ -17,9 +17,17 @@ function App() {
     
     <div className = "grid" >
       <MovingItem/>
-      <FixedItem xPosition = {30} yPosition = {10}/>
-      <FixedItem xPosition = {50} yPosition = {10}/>
-      <FixedItem xPosition = {70} yPosition = {10}/>
+      <FixedItem xPosition = {5} yPosition = {10}/>
+      <FixedItem xPosition = {25} yPosition = {10}/>
+      <FixedItem xPosition = {45} yPosition = {10}/>
+      <FixedItem xPosition = {65} yPosition = {10}/>
+      <FixedItem xPosition = {85} yPosition = {10}/>
+
+      <FixedItem xPosition = {5} yPosition = {20}/>
+      <FixedItem xPosition = {25} yPosition = {20}/>
+      <FixedItem xPosition = {45} yPosition = {20}/>
+      <FixedItem xPosition = {65} yPosition = {20}/>
+      <FixedItem xPosition = {85} yPosition = {20}/>
       <LifeCounter/>
     </div>
   )

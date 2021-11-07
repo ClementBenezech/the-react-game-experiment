@@ -1,3 +1,13 @@
+@keyframes fade-out {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+
 .gwbush {
     height: 10%;
     width: 10%;
@@ -11,6 +21,12 @@
         outline:none;
     }
     &--contact {
-        border: 3px solid rgb(255, 0, 0);
+        background: url("/images/fire-explosion.png");
+        background-size:contain;
+    }
+    &--dead {
+        background: url("/images/fire-explosion.png");
+        background-size:contain;
+        animation: fade-out 2s linear forwards;
     }
 }
