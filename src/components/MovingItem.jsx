@@ -1,6 +1,7 @@
 import '../styles/fancySquare.scss'
 import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useEffect } from 'react';
+import Projectile from './Projectile';
 
 const MovingItem = (props) => {
 
@@ -17,6 +18,10 @@ const MovingItem = (props) => {
     //Setting Hook on global state position for this object
     const currentPosition = state => state.boratPosition;
     const storePosition = useSelector(currentPosition)
+
+    //Setting Hook on global state position for the Projectiles
+    const currentProjectilesPositions = state => state.projectiles;
+    const storeProjectilePosition = useSelector(currentProjectilesPositions)
 
     //handling position changing scenarios in a function
 
@@ -37,8 +42,14 @@ const MovingItem = (props) => {
             if (storePosition.x <= 89) {
                 dispatch({ type: 'borat/putXPosition', payload: parseInt(storePosition.x)+1})
             }
+        } else if ( key === " ") {
+                dispatch({ type: 'projectile/spawn', payload: parseInt(storePosition.x)})
         }
     }
+
+    /*storeProjectilePosition.map(projectile => {
+        return <Projectile id = {projectile.id} />
+    })*/
 
     //Returning the square element   
     return <div tabIndex = '0' className = "fancy-square" style = {{top:storePosition.y + "vh", left: storePosition.x + "vh"}} onKeyDown = { e => {

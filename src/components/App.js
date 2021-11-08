@@ -2,33 +2,43 @@ import React from 'react';
 import '../styles/App.css';
 import '../styles/base.scss';
 import MovingItem from './MovingItem';
-import FixedItem from './FixedItem';
+import Enemy from './Enemy';
 import LifeCounter from './LifeCounter';
+import { useSelector } from 'react-redux';
+import Projectile from './Projectile';
+import KillCounter from './KillCounter';
 
 function App() {
-  /*const gridContent = () => {
-    const items = [];
-    for (let i = 0; i <= 1; i++) { 
-             items.push(<MovingItem xPosition = {i} yPosition = {i}/>)
-    }
-    return items
-  }*/
+
+  const storeEnemies = state => state.enemies;
+  const enemies = useSelector(storeEnemies)
+
+  const storeProjectiles = state => state.projectiles;
+  const projectiles = useSelector(storeProjectiles)
+
+  const storeEnemy = state => state.enemy;
+  const enemy = useSelector(storeEnemy)
+
+  const reactElementArrayEnemies = enemies.map(enemy => {
+    return <Enemy id = {enemy.id}/>
+  })
+
+  const reactElementArrayProjectiles = projectiles.map(projectile => {
+    return <Projectile id = {projectile.id}/>
+  })
+
   return(    
     
     <div className = "grid" >
       <MovingItem/>
-      <FixedItem xPosition = {5} yPosition = {10}/>
-      <FixedItem xPosition = {25} yPosition = {10}/>
-      <FixedItem xPosition = {45} yPosition = {10}/>
-      <FixedItem xPosition = {65} yPosition = {10}/>
-      <FixedItem xPosition = {85} yPosition = {10}/>
 
-      <FixedItem xPosition = {5} yPosition = {20}/>
-      <FixedItem xPosition = {25} yPosition = {20}/>
-      <FixedItem xPosition = {45} yPosition = {20}/>
-      <FixedItem xPosition = {65} yPosition = {20}/>
-      <FixedItem xPosition = {85} yPosition = {20}/>
-      <LifeCounter/>
+          {reactElementArrayEnemies}
+          {reactElementArrayProjectiles}
+
+      <div className = "counters">
+        <LifeCounter/>
+        <KillCounter/>
+      </div>
     </div>
   )
 }
