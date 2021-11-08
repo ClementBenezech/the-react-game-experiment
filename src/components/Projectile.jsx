@@ -19,48 +19,26 @@ const Projectile= (props) => {
     const storePositionY = state => state.projectiles[props.id].y;
     const positionY = useSelector(storePositionY)
 
-    //Setting Hook on global state position for the enemies
-    const currentEnemiesPositions = state => state.enemies;
-    const storeEnemiesPosition = useSelector(currentEnemiesPositions)
-
-    //Setting up Hook for havBeenKilledFlag
-    const [haveBeenKilled, setHaveBeenKilled] = useState(false);
+    //Setting up Hook for deadFlag in redux
+    const currentDeadFlag = state => state.projectiles[props.id].dead;
+    const storeDeadFlag = useSelector(currentDeadFlag);
 
     //Creating the reference we'll assign to the square.
     const inputRef = useRef();
 
     useEffect(() => {
-
-
-        storeEnemiesPosition.map(enemy => {
-
-        if (enemy.dead === false) {
         
-        if (haveBeenKilled) {
+        if (storeDeadFlag === true) {
             inputRef.current.className = "projectile projectile--dead"
-
-            
-        } else {
-        //Checking if the coordinates match to define the right styling
-
-        if ((Math.abs(enemy.x - positionX) <=5) && (Math.abs(enemy.y - positionY)<=5)) {
-            setHaveBeenKilled(true)  
         } else {
             inputRef.current.className = "projectile"
         }
-        if (positionY < 100) {
+        if (positionY != -10) {
             setTimeout(() => {
-              dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(positionY) - 2).toString(), 'id': props.id }})
+              dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(positionY) - 5).toString(), 'id': props.id }})
           }
           , 50)
-          }
-      }
-    }
-    })
-    
-    
-    
-    
+          }    
     })
       return (
             <div className = "projectile" style = {{top:positionY + "vh", left: positionX + "vh"}} ref={inputRef}></div> 

@@ -55,6 +55,7 @@ const MovingItem = (props) => {
     return <div tabIndex = '0' className = "fancy-square" style = {{top:storePosition.y + "vh", left: storePosition.x + "vh"}} onKeyDown = { e => {
             e.preventDefault();  
             moveAround(e.key)
-    }} ref={inputRef}></div>
+    }}
+ ref={inputRef}></div>
 }
 export default MovingItem

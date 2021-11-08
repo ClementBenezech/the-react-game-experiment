@@ -27,6 +27,6 @@
     &--dead {
         background: url("/images/fire-explosion.png");
         background-size:contain;
-        animation: fade-out 2s linear forwards;
+        animation: fade-out 0.2s linear forwards;
     }
 }

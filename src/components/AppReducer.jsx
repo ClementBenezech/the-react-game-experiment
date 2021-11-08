@@ -12,11 +12,11 @@ const initialState = {
                 {'id': 2, 'x': '45', 'y':'10', "dead": false},
                 {'id': 3,'x': '65', 'y':'10', "dead": false},
                 {'id': 4,'x': '85', 'y':'10', "dead": false},
-                {'id': 5, 'x': '5', 'y':'25', "dead": false},
-                {'id': 6,'x': '25', 'y':'25', "dead": false},
-                {'id': 7, 'x': '45', 'y':'25', "dead": false},
-                {'id': 8,'x': '65', 'y':'25', "dead": false},
-                {'id': 9,'x': '85', 'y':'25', "dead": false}],
+                {'id': 5, 'x': '5', 'y':'20', "dead": false},
+                {'id': 6,'x': '25', 'y':'20', "dead": false},
+                {'id': 7, 'x': '45', 'y':'20', "dead": false},
+                {'id': 8,'x': '65', 'y':'20', "dead": false},
+                {'id': 9,'x': '85', 'y':'20', "dead": false}],
     projectiles :[],
     lifeCount: 10,
     killCount: 0
@@ -65,13 +65,19 @@ const initialState = {
         return produce(state, draft => {
             // Modify the draft however you want
             console.log(draft.projectiles.length)
-            draft.projectiles.push({'id': draft.projectiles.length, 'x' : action.payload, 'y' : "90" })
-        })   
+            draft.projectiles.push({'id': draft.projectiles.length, 'x' : action.payload.toString(), 'y' : "90", 'dead' : false })
+        })
     }
     case 'enemy/setDead' : {
         return produce(state, draft => {
             // Modify the draft however you want
             draft.enemies[action.payload.id].dead = action.payload.dead;
+        })   
+    }
+    case 'projectile/setDead' : {
+        return produce(state, draft => {
+            // Modify the draft however you want
+            draft.projectiles[action.payload.id].dead = action.payload.dead;
         })   
     }
     case 'projectile/remove' : {

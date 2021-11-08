@@ -25,7 +25,7 @@ const Enemy = (props) => {
 
     //Setting Hook on global state position for the Projectiles
     const currentProjectilesPositions = state => state.projectiles;
-    const storeProjectilePosition = useSelector(currentProjectilesPositions)
+    const storeProjectiles = useSelector(currentProjectilesPositions)
 
     //Setting up Hook for havBeenKilledFlag
     const [haveBeenKilled, setHaveBeenKilled] = useState(false);
@@ -33,6 +33,7 @@ const Enemy = (props) => {
     //Redux Hook
     const storeIsItDead = state => state.enemies[props.id].dead;
     const isItDead = useSelector(storeIsItDead)
+
 
     //Creating the reference we'll assign to the square.
     const inputRef = useRef();
@@ -46,21 +47,28 @@ const Enemy = (props) => {
             dispatch({ type: 'enemy/descend', payload: {'position': -10, 'id': props.id }})
         } else {
         //Checking if the coordinates match to define the right styling
-        storeProjectilePosition.map(projectile => {
-            if ((Math.abs(projectile.x - positionX) <=5) && (Math.abs(projectile.y - positionY)<=5)) {
+        if (storeProjectiles.length > 0) {
+        storeProjectiles.slice(storeProjectiles.length - 20, storeProjectiles.length).map(projectile => {
+
+            
+            if (projectile.dead === false && (Math.abs(projectile.x - positionX) <=5) && (Math.abs(projectile.y - positionY)<=5)) {
                 dispatch({ type: 'killCount/increase', payload: null})
+                dispatch({ type: 'projectile/setDead', payload: {'dead': true, 'id': projectile.id }})
                 dispatch({ type: 'enemy/setDead', payload: {'dead': true, 'id': props.id }})
                 /*setHaveBeenKilled(true)    */        
             } else {
                 inputRef.current.className = "gwbush"
             }
         })
+        }
 
-        if (positionY < 100) {
+    
+
+        if (positionY < 1000) {
             setTimeout(() => {
-              dispatch({ type: 'enemy/descend', payload: {'position': (parseInt(positionY) + 2).toString(), 'id': props.id }})
+              dispatch({ type: 'enemy/descend', payload: {'position': (parseInt(positionY) + 3).toString(), 'id': props.id }})
           }
-          , 500)
+          , 1000)
         }
       }
     })
