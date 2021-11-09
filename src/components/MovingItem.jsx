@@ -19,10 +19,6 @@ const MovingItem = (props) => {
     const currentPosition = state => state.boratPosition;
     const storePosition = useSelector(currentPosition)
 
-    //Setting Hook on global state position for the Projectiles
-    const currentProjectilesPositions = state => state.projectiles;
-    const storeProjectilePosition = useSelector(currentProjectilesPositions)
-
     //handling position changing scenarios in a function
 
     const moveAround = (key) => {

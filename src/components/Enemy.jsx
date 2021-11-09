@@ -11,24 +11,14 @@ const Enemy = (props) => {
 
     const dispatch = useDispatch();
 
-    //Redux Hook
-    const storePositionX = state => state.enemies[props.id].x;
-    const positionX = useSelector(storePositionX)
+    const storeEnemy = state => state.enemies[props.id];
+    const currentEnemy = useSelector(storeEnemy)
 
-    //Redux Hook
-    const storePositionY = state => state.enemies[props.id].y;
-    const positionY = useSelector(storePositionY)
-
-    /*//Setting Hook on global state position for the MovingObject
-    const currentMovingObjectPosition = state => state.boratPosition;
-    const storeMovingObjectPosition = useSelector(currentMovingObjectPosition)*/
 
     //Setting Hook on global state position for the Projectiles
     const currentProjectilesPositions = state => state.projectiles;
     const storeProjectiles = useSelector(currentProjectilesPositions)
 
-    //Setting up Hook for havBeenKilledFlag
-    const [haveBeenKilled, setHaveBeenKilled] = useState(false);
 
     //Redux Hook
     const storeIsItDead = state => state.enemies[props.id].dead;
@@ -39,19 +29,14 @@ const Enemy = (props) => {
     const inputRef = useRef();
 
     useEffect(() => {
-
-        
-        
         if (isItDead === true) {
             inputRef.current.className = "gwbush gwbush--dead"
             dispatch({ type: 'enemy/descend', payload: {'position': -10, 'id': props.id }})
         } else {
         //Checking if the coordinates match to define the right styling
         if (storeProjectiles.length > 0) {
-        storeProjectiles.slice(storeProjectiles.length - 20, storeProjectiles.length).map(projectile => {
-
-            
-            if (projectile.dead === false && (Math.abs(projectile.x - positionX) <=5) && (Math.abs(projectile.y - positionY)<=5)) {
+        storeProjectiles.slice(-10).map(projectile => {
+            if (projectile.dead === false && (Math.abs(projectile.x - currentEnemy.x) <=5) && (Math.abs(projectile.y - currentEnemy.y)<=5)) {
                 dispatch({ type: 'killCount/increase', payload: null})
                 dispatch({ type: 'projectile/setDead', payload: {'dead': true, 'id': projectile.id }})
                 dispatch({ type: 'enemy/setDead', payload: {'dead': true, 'id': props.id }})
@@ -61,19 +46,16 @@ const Enemy = (props) => {
             }
         })
         }
-
-    
-
-        if (positionY < 1000) {
+        if (currentEnemy.y < 110) {
             setTimeout(() => {
-              dispatch({ type: 'enemy/descend', payload: {'position': (parseInt(positionY) + 3).toString(), 'id': props.id }})
+              dispatch({ type: 'enemy/descend', payload: {'position': (parseInt(currentEnemy.y) + 1).toString(), 'id': props.id }})
           }
-          , 1000)
+          , 300)
         }
       }
     })
       return (
-            <div className = "gwbush" style = {{top:positionY + "vh", left: positionX + "vh"}} ref={inputRef}></div> 
+            <div className = "gwbush" style = {{top:currentEnemy.y + "vh", left: currentEnemy.x + "vh"}} ref={inputRef}></div> 
       )
     }
 

@@ -7,7 +7,7 @@ import produce from 'immer';
 const initialState = {
     boratPosition: {'x':'50', 'y':'90'},
     GWBushPosition: {'x':'50', 'y':'50'},
-    enemies : [ {'id': 0, 'x': '5', 'y':'10', "dead": false},
+    enemies : [{'id': 0, 'x': '5', 'y':'10', "dead": false},
                 {'id': 1,'x': '25', 'y':'10', "dead": false},
                 {'id': 2, 'x': '45', 'y':'10', "dead": false},
                 {'id': 3,'x': '65', 'y':'10', "dead": false},
@@ -72,6 +72,8 @@ const initialState = {
         return produce(state, draft => {
             // Modify the draft however you want
             draft.enemies[action.payload.id].dead = action.payload.dead;
+            draft.enemies[action.payload.id].x = "0"
+            draft.enemies[action.payload.id].y = "0"
         })   
     }
     case 'projectile/setDead' : {
@@ -83,7 +85,8 @@ const initialState = {
     case 'projectile/remove' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            draft.projectiles[action.payload].x = 110;
+            /*draft.projectiles.splice(action.payload, 1)*/
+
         })   
     }
 

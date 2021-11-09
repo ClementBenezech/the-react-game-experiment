@@ -10,7 +10,7 @@ const KillCounter = () => {
     
     if (storeKillCount < 10) {
         return <div className = "life-counter">
-            <i class="fas fa-skull"></i>
+            <i class="fas fa-skull life-counter__icon"></i>
             <div className = "life-counter__value">{storeKillCount}</div>
         </div>
     } else {

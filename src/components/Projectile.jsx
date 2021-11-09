@@ -11,37 +11,33 @@ const Projectile= (props) => {
 
     const dispatch = useDispatch();
 
-    //Redux Hook
-    const storePositionX = state => state.projectiles[props.id].x;
-    const positionX = useSelector(storePositionX)
-    
-    //Redux Hook
-    const storePositionY = state => state.projectiles[props.id].y;
-    const positionY = useSelector(storePositionY)
-
-    //Setting up Hook for deadFlag in redux
-    const currentDeadFlag = state => state.projectiles[props.id].dead;
-    const storeDeadFlag = useSelector(currentDeadFlag);
+    const storeProjectile = state => state.projectiles.find(projectile => projectile.id == props.id);
+    const currentProjectile = useSelector(storeProjectile)
 
     //Creating the reference we'll assign to the square.
     const inputRef = useRef();
 
     useEffect(() => {
-        
-        if (storeDeadFlag === true) {
+
+        if (currentProjectile.dead === true) {
             inputRef.current.className = "projectile projectile--dead"
+            dispatch({ type: 'projectile/remove', payload: currentProjectile.id })
         } else {
             inputRef.current.className = "projectile"
+            if (currentProjectile.y >= -10) {
+                setTimeout(() => {
+                  dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(currentProjectile.y) - 1).toString(), 'id': props.id }})
+              }
+              , 50)
+              }
+            else {
+                dispatch({ type: 'projectile/setDead', payload: {'dead': true, 'id': currentProjectile.id }})
+            }    
         }
-        if (positionY != -10) {
-            setTimeout(() => {
-              dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(positionY) - 5).toString(), 'id': props.id }})
-          }
-          , 50)
-          }    
+        
     })
       return (
-            <div className = "projectile" style = {{top:positionY + "vh", left: positionX + "vh"}} ref={inputRef}></div> 
+            <div className = "projectile" style = {{top:currentProjectile.y + "vh", left: currentProjectile.x + "vh"}} ref={inputRef}></div> 
       )
     }
 
