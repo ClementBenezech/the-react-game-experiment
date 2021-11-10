@@ -13,7 +13,7 @@
     width: 10%;
     background-color:black;
     position: absolute;
-    background: url("/images/gwbush.png");
+    background: url("/images/gwbush-low.png");
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
@@ -27,7 +27,10 @@
     &--dead {
         background: url("/images/fire-explosion.png");
         background-size:contain;
-        display:none;
-        /*animation: fade-out 2s linear forwards;*/
+        animation: fade-out 2s linear forwards;
+    }
+    &--red {
+        background: url("/images/gwbush-red.png");
+        background-size:contain;
     }
 }

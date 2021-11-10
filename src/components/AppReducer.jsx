@@ -1,26 +1,9 @@
 import update from 'immutability-helper';
 import { createReducer } from '@reduxjs/toolkit';
 import produce from 'immer';
+import { enemyWaves } from './Constants';
+import { initialState } from './Constants';
 
-
-
-const initialState = {
-    boratPosition: {'x':'50', 'y':'90'},
-    GWBushPosition: {'x':'50', 'y':'50'},
-    enemies : [{'id': 0, 'x': '5', 'y':'10', "dead": false},
-                {'id': 1,'x': '25', 'y':'10', "dead": false},
-                {'id': 2, 'x': '45', 'y':'10', "dead": false},
-                {'id': 3,'x': '65', 'y':'10', "dead": false},
-                {'id': 4,'x': '85', 'y':'10', "dead": false},
-                {'id': 5, 'x': '5', 'y':'20', "dead": false},
-                {'id': 6,'x': '25', 'y':'20', "dead": false},
-                {'id': 7, 'x': '45', 'y':'20', "dead": false},
-                {'id': 8,'x': '65', 'y':'20', "dead": false},
-                {'id': 9,'x': '85', 'y':'20', "dead": false}],
-    projectiles :[],
-    lifeCount: 10,
-    killCount: 0
-}
    // Use the initialState as a default value
    export default function AppReducer(state = initialState, action) {
      // The reducer normally looks at the action type field to decide what happens  
@@ -43,16 +26,16 @@ const initialState = {
                  lifeCount: state.lifeCount -1
          }
      }
-     case 'killCount/increase' : {
+     case 'killCount/add' : {
         return {
              ...state,
-                 killCount: state.killCount +1
+                 killCount: state.killCount + action.payload
          }
      }
      case 'enemy/descend' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            draft.enemies[action.payload.id].y = action.payload.position;
+            draft.enemies[action.payload.waveNumber][action.payload.id].y = action.payload.position;
         })   
     }
     case 'projectile/elevate' : {
@@ -71,9 +54,7 @@ const initialState = {
     case 'enemy/setDead' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            draft.enemies[action.payload.id].dead = action.payload.dead;
-            draft.enemies[action.payload.id].x = "0"
-            draft.enemies[action.payload.id].y = "0"
+            draft.enemies[action.payload.waveNumber][action.payload.id].dead = action.payload.dead;
         })   
     }
     case 'projectile/setDead' : {
@@ -85,7 +66,21 @@ const initialState = {
     case 'projectile/remove' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            /*draft.projectiles.splice(action.payload, 1)*/
+            draft.projectiles = draft.projectiles.splice(action.payload, 1);
+
+        })   
+    }
+    case 'gameStarted/setValue' : {
+        return produce(state, draft => {
+            // Modify the draft however you want
+            draft.gameStarted = action.payload
+
+        })   
+    }
+    case 'wave/add' : {
+        return produce(state, draft => {
+            // Modify the draft however you want
+            draft.waveCount = draft.waveCount + action.payload
 
         })   
     }

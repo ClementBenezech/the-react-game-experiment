@@ -21,12 +21,12 @@ const Projectile= (props) => {
 
         if (currentProjectile.dead === true) {
             inputRef.current.className = "projectile projectile--dead"
-            dispatch({ type: 'projectile/remove', payload: currentProjectile.id })
+
         } else {
             inputRef.current.className = "projectile"
             if (currentProjectile.y >= -10) {
                 setTimeout(() => {
-                  dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(currentProjectile.y) - 1).toString(), 'id': props.id }})
+                  dispatch({ type: 'projectile/elevate', payload: {'position': (parseInt(currentProjectile.y) - 10).toString(), 'id': props.id }})
               }
               , 50)
               }

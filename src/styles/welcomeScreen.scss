@@ -1,0 +1,36 @@
+.welcome-screen {
+    position:fixed;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0, 0, 0, 0.418);
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    font-size: 1.5vw;
+    color:white;
+    &__button-demo {
+        width: auto;
+        font-size: 2vw;
+    }
+    &__button-start {
+        width: auto;
+        font-size: 2vw;
+    }
+    &__text {
+        width: 50%;
+        margin: 0 25%;
+        text-align:center;
+        height:max-content;
+        padding:0;
+    }
+    &__logo {
+        height: 10%;
+        object-fit:contain;
+        margin: 1vw;
+        &--big {
+            height:40%;
+        }
+    }
+}

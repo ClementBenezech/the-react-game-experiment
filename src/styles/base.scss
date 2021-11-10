@@ -14,12 +14,20 @@ body {
 }
 
 .counters {
-    width:100%;
+    width:50%;
     display:flex;
     flex-direction:row;
+    position: fixed;
+    top: 0;
+    left: 25%;
+    border: 0.3vw solid black;
 }
 
 #root {
+    height:100%;
+}
+
+.screen {
     height:100%;
     display:flex;
     flex-direction:row;
