@@ -9,11 +9,36 @@
 
 
 .projectile {
+&--player {
+    height: 8%;
+    width: 8%;
+    background-color:black;
+    position: absolute;
+    background: url("/images/missile.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    &:focus {
+        outline:none;
+    }
+    &--contact {
+        background: url("/images/fire-explosion.png");
+        background-size:contain;
+    }
+    &--dead {
+        background: url("/images/fire-explosion-projectile-player.png");
+        background-size:contain;
+        animation: fade-out 0.2s linear forwards;
+    }
+
+}
+
+&--enemy {
     height: 10%;
     width: 10%;
     background-color:black;
     position: absolute;
-    background: url("/images/missile.png");
+    background: url("/images/waste.png");
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
@@ -29,4 +54,6 @@
         background-size:contain;
         animation: fade-out 0.2s linear forwards;
     }
+
+}
 }

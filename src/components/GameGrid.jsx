@@ -1,7 +1,8 @@
 import MovingItem from './MovingItem';
 import Enemy from './Enemy';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Projectile from './Projectile';
+
 
 
 const GameGrid = () => {
@@ -25,8 +26,8 @@ const GameGrid = () => {
 
     if (projectiles.length > 0) {
         reactElementArrayProjectiles = projectiles.map(projectile => {
-            if (projectile.dead === false) {
-            return <Projectile id = {projectile.id}/>
+            if (Date.now() - projectile.timeOfDeath < 1000 || projectile.timeOfDeath === null) {
+                return <Projectile id = {projectile.id}/>
             }
           })
 

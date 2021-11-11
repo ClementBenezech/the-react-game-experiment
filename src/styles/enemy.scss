@@ -8,17 +8,20 @@
 }
 
 
-.gwbush {
+.enemy {
     height: 10%;
     width: 10%;
     background-color:black;
     position: absolute;
-    background: url("/images/gwbush-low.png");
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
     &:focus {
         outline:none;
+    }
+    &--regular {
+        background: url("/images/gwbush-low.png");
+        background-size:contain;
     }
     &--contact {
         background: url("/images/fire-explosion.png");
@@ -29,8 +32,16 @@
         background-size:contain;
         animation: fade-out 2s linear forwards;
     }
-    &--red {
-        background: url("/images/gwbush-red.png");
+    &--fast {
+        background: url("/images/gwbush-speed.png");
+        background-size:contain;
+    }
+    &--heavy {
+        background: url("/images/enemy-heavy.png");
+        background-size:contain;
+    }
+    &--shooter {
+        background: url("/images/enemy-shooter.png");
         background-size:contain;
     }
 }

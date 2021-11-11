@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import '../styles/welcomeScreen.scss'
 import boratImage from '../images/borat-nice.png'
 import youLoseImage from '../images/youlose.png'
-import { initialState } from './Constants'
 
 
 const EndScreen = (props) => {
-    const dispatch = useDispatch()
 
     const storeLifeCount = state => state.lifeCount;
     const lifeCount = useSelector(storeLifeCount);

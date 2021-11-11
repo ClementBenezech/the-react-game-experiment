@@ -19,9 +19,10 @@ const MovingItem = (props) => {
     const currentPosition = state => state.boratPosition;
     const storePosition = useSelector(currentPosition)
 
-    //Adding Hook for going left and going right. This is to allow our hero to move while shooting
-    const [previousKeys, setPreviousKeys] = useState([])
-    const [firing, setFiring] = useState(false)
+    const currentProjectilesPositions = state => state.projectiles;
+    const storeProjectiles = useSelector(currentProjectilesPositions)
+
+    //checking the last time the player fired a projectile
     const [timeOfLastFire , setTimeOfLastFire] = useState(Date.now())
 
     //handling position changing scenarios in a function
@@ -30,40 +31,36 @@ const MovingItem = (props) => {
         
         if (key === "ArrowLeft") {
             if (storePosition.x >= 2) {
-                setPreviousKeys([])
                  dispatch({type: 'borat/putXPosition', payload: parseInt(storePosition.x)-5}
                  
                 )}
         } else if (key === "ArrowRight" ) {
             if (storePosition.x <=92) {
-                setPreviousKeys([])
                 dispatch({type: 'borat/putXPosition', payload: parseInt(storePosition.x)+5}
                 )}
             }
             if (key === " " && (Date.now() - timeOfLastFire) > 200) {
-                dispatch({ type: 'projectile/spawn', payload: parseInt(storePosition.x)})
-                setFiring(false);
+                dispatch({ type: 'projectile/spawn', payload: {'positionX' : parseInt(storePosition.x), 'positionY' : parseInt(storePosition.y), 'type' : "player"}})
                 setTimeOfLastFire(Date.now())
             }
         }
+    //If there are projectiles in the store, we check if they collide with the player and if they can hurt us.
+    if (storeProjectiles.length > 0) {
+            storeProjectiles.map(projectile => {
+                if (projectile.dead === false && projectile.type === "enemy" && (Math.abs(projectile.x - storePosition.x) <=5) && (Math.abs(projectile.y - storePosition.y)<=5)) {
+                    //We decrease the player's lifeCount, and kill the projectile
+                    dispatch({ type: 'projectile/setDead', payload: {'dead': true, 'id': projectile.id }})
+                    dispatch({ type: 'lifeCount/decrease', payload: true})        
+                } 
+            })
+            }
 
         
 
-    //Returning the Borat Saucer  
+    //Returning the player 
     return <div tabIndex = '0' className = "fancy-square" style = {{top:storePosition.y + "vh", left: storePosition.x + "vh"}} onKeyDown = { e => {
             e.preventDefault();
             moveAround(e.key);
-
-                
-                           
-            
-    }} onKeyUp = { e => {
-        e.preventDefault();
-            if (e.key === " ") {
-                    setFiring(false); 
-                }       
-        
-    }}
- ref={inputRef}></div>
+        }}  ref={inputRef}></div>
 }
 export default MovingItem

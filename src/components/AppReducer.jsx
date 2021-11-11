@@ -1,8 +1,6 @@
-import update from 'immutability-helper';
-import { createReducer } from '@reduxjs/toolkit';
 import produce from 'immer';
-import { enemyWaves } from './Constants';
-import { initialState } from './Constants';
+import { initialState } from '../js/Constants';
+
 
    // Use the initialState as a default value
    export default function AppReducer(state = initialState, action) {
@@ -41,14 +39,15 @@ import { initialState } from './Constants';
     case 'projectile/elevate' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            draft.projectiles[action.payload.id].y = action.payload.position;
+            draft.projectiles[action.payload.id].y = action.payload.positionY;
         })   
     }
+    
     case 'projectile/spawn' : {
         return produce(state, draft => {
             // Modify the draft however you want
             console.log(draft.projectiles.length)
-            draft.projectiles.push({'id': draft.projectiles.length, 'x' : action.payload.toString(), 'y' : "90", 'dead' : false })
+            draft.projectiles.push({'id': draft.projectiles.length, 'x' : action.payload.positionX.toString(), 'y' : action.payload.positionY.toString() , 'dead' : false, 'type' : action.payload.type, timeOfDeath: null })
         })
     }
     case 'enemy/setDead' : {
@@ -57,16 +56,22 @@ import { initialState } from './Constants';
             draft.enemies[action.payload.waveNumber][action.payload.id].dead = action.payload.dead;
         })   
     }
+    case 'enemy/decreaseHealth' : {
+        return produce(state, draft => {
+            // Modify the draft however you want
+            draft.enemies[action.payload.waveNumber][action.payload.id].enemyType.health = draft.enemies[action.payload.waveNumber][action.payload.id].enemyType.health - action.payload.amount;
+        })   
+    }
     case 'projectile/setDead' : {
         return produce(state, draft => {
             // Modify the draft however you want
             draft.projectiles[action.payload.id].dead = action.payload.dead;
         })   
     }
-    case 'projectile/remove' : {
+    case 'projectile/setTimeOfDeath' : {
         return produce(state, draft => {
             // Modify the draft however you want
-            draft.projectiles = draft.projectiles.splice(action.payload, 1);
+            draft.projectiles[action.payload.id].timeOfDeath = action.payload.timeOfDeath
 
         })   
     }
