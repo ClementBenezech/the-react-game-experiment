@@ -6,6 +6,7 @@ import vsImage from '../images/vs.png'
 
 const WelcomeScreen = (props) => {
     const dispatch = useDispatch()
+    //Display the welcom screen.
     return <div className = "welcome-screen">
         <img  className = "welcome-screen__logo" src = {boratImage}/>
         <img  className = "welcome-screen__logo" src = {vsImage}/>
@@ -15,6 +16,7 @@ const WelcomeScreen = (props) => {
         <span className = "welcome-screen__text">To shoot, use the <button className = "welcome-screen__button-demo">{'SPACE'}</button> key!</span>
         <span className = "welcome-screen__text">If you can save us all, it's nice. I liiiiiike!</span>
         <button name="button" className = "welcome-screen__button-start" onClick = {(e) => {
+            //Onclick, set the state.gamStarted value to TRUE to start the game
             dispatch({ type: 'gameStarted/setValue', payload: true})
         }}>SAVE THE EARTH!</button>
     </div>

@@ -11,6 +11,8 @@ import EndScreen from './EndScreen';
 
 function App() {
 
+        //Declaring all necessary hooks. 
+
         const storeGameStarted = state => state.gameStarted;
         const gameStarted = useSelector(storeGameStarted)
 
@@ -31,16 +33,21 @@ function App() {
 
         const dispatch = useDispatch()
 
+        //if the game has started
         if (gameStarted === true) {
+          //If all enemies from this wave are dead
           if (killCount === enemyCount) {
-            /*dispatch({ type: 'gameStarted/setValue', payload: false})*/
+            //If this is not the last of the waves
             if (waveCount != (nbOfWaves - 1)) {
-            dispatch({ type: 'wave/add', payload: 1 })  
-            dispatch({ type: 'killCount/add', payload: -10})
+            // We dispatch the next wave and reset the killcount.
+              dispatch({ type: 'wave/add', payload: 1 })  
+              dispatch({ type: 'killCount/add', payload: -10})
             }
           }
 
+          //if the player still have lives and we have not reached the last wave.
           if (waveCount != nbOfWaves -1 && lifeCount > 0 ) {
+          //We return the gameScreen
           return(
             <div className = "screen">
               <div className = "counters">
@@ -52,6 +59,8 @@ function App() {
             </div>
           )
           } else {
+            //In any other scenarion display the endScreen:
+            // We know the game has started, so whenever we have no lives or reach last wave, its over.
             return(
               <div className= "screen">
                 <EndScreen/>
@@ -59,6 +68,7 @@ function App() {
             )
           }
         }
+        //If the game has not started yet, we display the welcome screen.
         else {
           return(
             <div className= "screen">

@@ -9,6 +9,7 @@ const EndScreen = (props) => {
     const storeLifeCount = state => state.lifeCount;
     const lifeCount = useSelector(storeLifeCount);
 
+    // If we still have lives left, we display the victory message
     if (lifeCount > 0) {
         return <div className = "welcome-screen">
             <img  className = "welcome-screen__logo welcome-screen__logo--big" src = {boratImage}/>
@@ -16,6 +17,7 @@ const EndScreen = (props) => {
 
         </div>
     }
+    //If we have no lives, we display the defeat message
     else {
         return <div className = "welcome-screen">
             <img  className = "welcome-screen__logo welcome-screen__logo--big" src = {youLoseImage}/>
